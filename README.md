@@ -1,87 +1,98 @@
-# Dream Park — Système de gestion de parking
+<div align="center">
 
-Projet universitaire de programmation orientée objet en Python, réalisé dans le cadre de la **Licence 3 MIASHS — parcours Informatique et SHS**, à l’**Université Toulouse — Jean-Jaurès**.
+# 🚗 Dream Park
+### Application de gestion et de simulation d'un parking
 
-Dream Park est une application de bureau qui simule le fonctionnement d’un parking : attribution des places, bornes d’entrée et de sortie, gestion des clients et abonnements, prestations de service, livraison de véhicules, statistiques et sauvegarde des données.
+**Projet universitaire Python · Programmation orientée objet · Architecture MVC**
 
-## Aperçu de l’interface
+![Python](https://img.shields.io/badge/Python-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Tkinter](https://img.shields.io/badge/Interface-Tkinter-234F70?style=for-the-badge)
+![Architecture](https://img.shields.io/badge/Architecture-MVC-6A5ACD?style=for-the-badge)
+![Tests](https://img.shields.io/badge/Tests-unittest-2E8B57?style=for-the-badge)
 
-Interface modernisée avec un tableau de bord bleu nuit, des actions turquoise et des espaces distincts pour les clients, les voituriers et l’administrateur.
+Une application de bureau qui **simule le fonctionnement d'un parking** : entrées et sorties, attribution des places, abonnements, services, espaces professionnels, statistiques et sauvegarde locale.
 
-![Tableau de bord de Dream Park](docs/screenshots/tableau-de-bord.png)
+**20 places · 3 niveaux · 2 accès simulés · 205 tests réussis lors de la campagne documentée**
 
-![Identification et choix du rôle](docs/screenshots/identification.png)
+[Découvrir les fonctionnalités](#fonctionnalités) · [Installer et lancer](#installation-et-démarrage) · [Consulter le rapport de tests](docs/RAPPORT_TESTS.md)
 
-> Les captures présentent l’interface avec des valeurs de démonstration. Aucune donnée client réelle n’est publiée dans le dépôt.
+</div>
+
+---
+
+## Aperçu de l'application
+
+<table>
+  <tr>
+    <td align="center"><strong>Tableau de bord</strong></td>
+    <td align="center"><strong>Identification et choix d'espace</strong></td>
+  </tr>
+  <tr>
+    <td><img src="docs/screenshots/tableau-de-bord.png" alt="Tableau de bord Dream Park" width="480"></td>
+    <td><img src="docs/screenshots/identification.png" alt="Écran d'identification Dream Park" width="350"></td>
+  </tr>
+</table>
+
+L'interface Tkinter utilise un thème bleu nuit et turquoise. Elle distingue les parcours **Client**, **Voiturier** et **Administrateur**. Les captures montrent des données de démonstration.
+
+## Présentation du projet
+
+Dream Park a été développé dans le cadre de la **Licence 3 MIASHS, parcours Informatique et SHS**, à l'**Université Toulouse – Jean-Jaurès**. L'objectif est de modéliser un système de gestion de parking en séparant les **règles métier**, les **actions utilisateur** et l'**interface graphique**.
+
+Le système repose sur des objets Python représentant notamment le parking, ses places, ses accès, les véhicules, les clients et les abonnements. Les équipements tels que les caméras et les bornes sont **simulés** : aucune connexion à un dispositif physique n'est nécessaire.
 
 ## Fonctionnalités
 
-### Parking et circulation
-- Parking initialisé avec **20 places réparties sur 3 niveaux** ; chaque place possède un numéro, un niveau et des dimensions.
-- Recherche d’une place disponible et compatible avec la taille du véhicule.
-- **Deux accès physiques simulés** (accès 1 et accès 2), chacun doté de sa propre caméra, borne à tickets, panneau d’affichage et de deux téléporteurs simulés.
-- Les deux accès partagent un seul parking : un véhicule peut entrer par une borne et ressortir par l’autre ; les panneaux indiquent le même nombre de places libres.
-- Enregistrement de l’accès d’entrée et de sortie dans l’historique des stationnements.
+| Domaine | Fonctionnalités principales |
+|---|---|
+| **Parking** | 20 places sur 3 niveaux ; choix d'une place selon les dimensions du véhicule ; suivi des disponibilités |
+| **Accès** | Deux accès simulés avec caméras, bornes à tickets, panneaux et téléporteurs ; entrée par un accès et sortie par l'autre |
+| **Tickets** | Référence hexadécimale de 6 caractères, utilisée pour récupérer le véhicule |
+| **Clients** | Identification par carte à 8 chiffres ou création d'une session nouveau client |
+| **Abonnements** | Formules classique et Super-abonné, changement de formule et résiliation |
+| **Services** | Maintenance, entretien, demande de livraison et traitement depuis l'espace Voiturier |
+| **Administration** | Consultation de statistiques et export des résultats aux formats TXT et HTML |
+| **Sauvegarde** | Persistance locale au format JSON et rechargement des informations au redémarrage |
 
-### Clients et abonnements
-- Identification d’un abonné par **numéro de carte à 8 chiffres** ou création d’une session de nouveau client.
-- Abonnement classique et **Super-abonné** ; modification et résiliation des formules.
-- Pour un véhicule stationné, génération d’un ticket comportant une **référence hexadécimale de 6 caractères** à saisir lors de la sortie.
-- Contrôle des immatriculations et refus des stationnements actifs en double.
+### Ce qui distingue le projet
 
-### Services
-- Demande de **maintenance**, **entretien** ou **livraison** par les clients abonnés.
-- Modification du service demandé, avec saisie d’une heure pour la livraison et utilisation de l’adresse du client.
-- Exécution de la livraison depuis un **espace Voiturier** séparé : visualisation des demandes, sélection et confirmation.
-- Gestion d’une **prise en charge garantie simulée** lorsque le véhicule d’un Super-abonné ne peut pas être affecté à une place adaptée.
-
-### Administration et statistiques
-- Espace Administrateur séparé de l’espace client.
-- Statistiques sur les passages, les véhicules, les services utilisés, les places et niveaux, ainsi que les durées de stationnement.
-- Export des statistiques aux formats **TXT** et **HTML**.
-
-### Persistance
-- Sauvegarde en **JSON** dans `donnees/dreampark.json`.
-- Rechargement des clients, véhicules, abonnements, places, placements et historiques au redémarrage.
-- Conservation des références de tickets et des numéros d’accès.
-- Écriture par fichier temporaire puis remplacement du JSON, afin de limiter les écritures incomplètes.
-
-## Confidentialité des données
-
-Le fichier `donnees/dreampark.json` est créé lors de la première sauvegarde et est ignoré par Git via `.gitignore`. Il peut contenir des noms, adresses, plaques d’immatriculation et numéros de carte : **ne le publiez pas sur GitHub**. La version publique démarre avec un parking vierge.
+- **Gestion cohérente de deux accès** partageant le même parking et le même nombre de places disponibles.
+- **Vérification de compatibilité** entre les dimensions du véhicule et celles des places.
+- **Parcours différenciés** pour les clients, les voituriers et l'administrateur.
+- **Sauvegarde avec écriture temporaire**, puis remplacement du fichier JSON pour limiter les écritures incomplètes.
+- **Couverture de plusieurs scénarios métier** par une suite automatisée de tests unitaires et d'intégration.
 
 ## Technologies
 
-- **Python 3** (version récente recommandée : 3.10 ou ultérieure).
-- **Tkinter** pour l’interface graphique.
-- **unittest** et `unittest.mock` pour les tests.
-- Modules de la bibliothèque standard : `json`, `pathlib`, `datetime`, `uuid`, `secrets`, `os`, `tempfile`, etc.
+| Technologie | Utilisation |
+|---|---|
+| **Python 3** | Logique métier et programmation orientée objet |
+| **Tkinter** | Interface graphique de bureau |
+| **unittest / unittest.mock** | Tests automatisés et simulation de composants |
+| **JSON / pathlib / os** | Sauvegarde et gestion des chemins de fichiers |
+| **Git / GitHub** | Versionnement et publication du code |
 
-Aucune dépendance Python externe n’est nécessaire pour exécuter cette version du projet. Tkinter doit être disponible dans l’installation Python.
+Le projet utilise la bibliothèque standard de Python ; aucune bibliothèque Python externe n'est requise. Une installation de Python disposant de Tkinter est nécessaire.
 
 ## Architecture MVC
 
-Le projet suit une séparation **Modèle — Vue — Contrôleur** :
-
-- **`Class/` — Modèle :** règles du parking et des services, objets métier, statistiques et persistance. Le point d’entrée du programme est `Class/main.py`.
-- **`Vue/` — Vue :** fenêtres Tkinter (client, entrée, sortie, services, voiturier, administrateur, statistiques).
-- **`Controleur/` — Contrôleur :** `ControleurPrincipal` relie les actions des boutons aux traitements du modèle et à la sauvegarde.
-- **`Tests/` — Tests :** scénarios unitaires et d’intégration sans modification du fichier JSON utilisé en production.
-- **`donnees/` — Données :** état du parking enregistré localement.
+| Composant | Dossier | Rôle |
+|---|---|---|
+| **Modèle** | `Class/` | Objets métier, règles de gestion, statistiques, sauvegarde |
+| **Vue** | `Vue/` | Fenêtres et interactions graphiques Tkinter |
+| **Contrôleur** | `Controleur/` | Coordination entre actions de l'interface et logique métier |
+| **Tests** | `Tests/` | Tests unitaires, d'intégration et scénarios de validation |
+| **Documentation** | `docs/` | Rapport de tests et captures d'écran |
 
 ```text
 DreamPark/
 ├── Class/
 │   ├── main.py
-│   ├── acces.py
 │   ├── parking.py
 │   ├── place.py
-│   ├── placement.py
-│   ├── voiture.py
+│   ├── acces.py
 │   ├── client.py
 │   ├── abonnement.py
-│   ├── voiturier.py
-│   ├── administrateur.py
 │   ├── sauvegarde.py
 │   └── ...
 ├── Controleur/
@@ -93,94 +104,98 @@ DreamPark/
 │   ├── vue_administrateur.py
 │   └── ...
 ├── Tests/
-│   ├── test_acces.py
-│   ├── test_deux_acces.py
-│   ├── test_sauvegarde.py
-│   └── ...
-├── donnees/
-│   └── dreampark.json
-├── README.md
-└── RAPPORT_TESTS.md
+│   └── test_*.py
+├── docs/
+│   ├── RAPPORT_TESTS.md
+│   ├── RAPPORT_TESTS.pdf
+│   └── screenshots/
+│       ├── tableau-de-bord.png
+│       └── identification.png
+└── README.md
 ```
+
+Le dossier `donnees/` et son fichier `dreampark.json` sont **créés localement lorsque l'application sauvegarde son état** : ils ne doivent pas être publiés dans le dépôt.
 
 ## Installation et démarrage
 
-1. Récupérer le dossier du projet, en conservant les sous-dossiers `Class`, `Vue`, `Controleur`, `Tests` et `donnees`.
-2. Ouvrir un terminal **à la racine `DreamPark`**, pas à l’intérieur de `Class`.
-3. Vérifier la version de Python :
+**Prérequis :** Python 3 avec Tkinter installé. L'application est prévue pour une utilisation sur ordinateur avec interface graphique.
 
-```powershell
-python --version
-```
+1. Cloner le dépôt :
 
-4. Lancer l’application :
+   ```bash
+   git clone https://github.com/Caze1127/DreamPark-Parking-Management-System.git
+   ```
 
-```powershell
-python -m Class.main
-```
+2. Ouvrir un terminal à la racine du projet :
 
-Sous Windows, le lancement fonctionne depuis PowerShell ou le terminal de PyCharm. Si `python` n’est pas reconnu, essayer `py -m Class.main`.
+   ```bash
+   cd DreamPark-Parking-Management-System
+   ```
 
-**Important :** ne pas exécuter directement `python Class/main.py`, car le projet utilise des imports relatifs depuis le package `Class`.
+3. Lancer l'application :
 
-## Exemple d’utilisation
+   ```bash
+   python -m Class.main
+   ```
 
-**Entrer un véhicule**
-1. Depuis l’identification, utiliser une carte existante ou choisir un nouveau client.
-2. Cliquer sur « Entrer une voiture ».
-3. Sélectionner la **borne 1 ou 2**, saisir l’immatriculation et les dimensions, puis l’offre et le paiement si nécessaire.
-4. Valider. L’application affecte une place et affiche un ticket ; **conserver la référence à 6 caractères**.
+Sous Windows, si la commande `python` n'est pas reconnue, essayer `py -m Class.main`.
 
-**Reprendre un véhicule**
-1. Cliquer sur « Reprendre une voiture ».
-2. Choisir la borne de sortie 1 ou 2.
-3. Saisir les **6 caractères de la référence** du ticket (et non le texte complet du ticket).
-4. Valider pour libérer la place.
+> **Important :** ne pas lancer directement `python Class/main.py` : le projet utilise des imports de modules depuis le package `Class`.
 
-**Demander puis effectuer une livraison**
-1. Le client abonné sélectionne le service « livraison » et saisit l’heure souhaitée.
-2. Depuis l’identification, ouvrir **« Accès voiturier »**.
-3. Sélectionner la demande et confirmer l’exécution. La place est alors libérée et l’opération enregistrée.
+## Exemple de parcours utilisateur
 
-**Consulter les statistiques**
-1. Depuis l’identification, ouvrir **« Accès administrateur »**.
-2. Cliquer sur « Consulter les statistiques ».
-3. Actualiser, puis éventuellement exporter en TXT ou en HTML.
+**Entrer un véhicule :** choisir un nouveau client ou s'identifier, sélectionner l'entrée, choisir la borne, renseigner le véhicule et valider. L'application affecte une place adaptée et fournit une référence de ticket.
 
-## Tests
+**Récupérer un véhicule :** sélectionner la sortie, choisir une borne et saisir la référence hexadécimale à 6 caractères afin de libérer la place.
 
-La suite automatisée contient **205 tests répartis dans 21 fichiers**. Résultat observé sur la version livrée : **205 tests réussis, aucun échec**.
+**Demander une livraison :** un client abonné sélectionne le service et renseigne l'heure souhaitée ; la demande peut ensuite être consultée et traitée dans l'espace Voiturier.
 
-À la racine du projet :
+**Consulter les statistiques :** accéder à l'espace Administrateur, ouvrir les statistiques et, si besoin, exporter les données en TXT ou HTML.
 
-```powershell
+## Tests et validation
+
+Le **rapport de validation daté du 9 novembre 2026** fait état de :
+
+| Indicateur | Résultat documenté |
+|---|---:|
+| Fichiers de tests | **21** |
+| Tests exécutés | **205** |
+| Tests réussis | **205** |
+| Échecs / erreurs | **0** |
+
+Pour exécuter la suite de tests depuis la racine du dépôt :
+
+```bash
 python -m unittest discover -s Tests -p "test_*.py" -v
 ```
 
-Pour vérifier un domaine particulier :
+Pour lancer un ensemble ciblé :
 
-```powershell
+```bash
 python -m unittest Tests.test_deux_acces -v
 python -m unittest Tests.test_sauvegarde -v
-python -m unittest Tests.test_interface_voiturier -v
 ```
 
-Le détail des 21 fichiers, le rôle des tests, la méthodologie et les scénarios de vérification manuelle figurent dans **[RAPPORT_TESTS.md](RAPPORT_TESTS.md)** ; une version PDF accompagne également le rendu.
+**Documentation complète :** [rapport de tests (Markdown)](docs/RAPPORT_TESTS.md) · [version PDF](docs/RAPPORT_TESTS.pdf).
 
-## Limites et choix de simulation
+Ces résultats correspondent à la campagne documentée ; ils ne constituent pas un statut d'intégration continue exécuté automatiquement à chaque commit.
 
-- Les caméras, téléporteurs et bornes sont **modélisés en Python**, sans connexion à un équipement physique.
-- Les paiements sont **validés au niveau du programme**, sans transaction bancaire réelle.
-- Les espaces Voiturier et Administrateur sont des **accès de démonstration**, sans authentification professionnelle sécurisée.
-- L’heure de livraison est une information de demande ; **la livraison n’est pas déclenchée automatiquement** à l’heure indiquée.
-- Le pack garanti est **simulé** ; il n’existe pas de réseau de parkings externes piloté par l’application.
-- Les exports disponibles sont TXT et HTML ; les autres formats évoqués dans le sujet ne sont pas développés.
-- La sauvegarde JSON est locale et ne remplace pas un serveur multi-utilisateur. Les deux accès sont indépendants au niveau des objets mais restent simulés dans une seule application.
+## Confidentialité et limites
 
-## Remise du projet
+### Données locales
 
-Le code source, les tests, le fichier JSON et les deux documents d’accompagnement suffisent pour reproduire la démonstration. Les dossiers d’environnement local (`.venv/`, `.idea/`, `__pycache__/`) ne sont pas nécessaires à l’exécution et ne doivent pas être inclus dans un dépôt Git.
+Le fichier `donnees/dreampark.json` peut contenir des noms, adresses et immatriculations. Il doit rester **local et exclu du suivi Git** au moyen d'un `.gitignore` adapté (`donnees/`, `__pycache__/`, `*.pyc`, `.venv/`, etc.). Aucun fichier de données client n'est nécessaire pour consulter le code public.
+
+### Limites de la simulation
+
+- Bornes, caméras et téléporteurs modélisés en Python, sans connexion matérielle réelle.
+- Paiements simulés, sans transaction bancaire.
+- Accès Voiturier et Administrateur destinés à la démonstration, sans authentification de production.
+- Livraison enregistrée et traitée par l'utilisateur ; pas de déclenchement automatique à l'heure indiquée.
+- Fichier JSON local : pas de serveur multi-utilisateur ni de base de données partagée.
 
 ---
 
-Projet pédagogique — Dream Park, Université Toulouse — Jean-Jaurès, L3 MIASHS.
+<div align="center">
+  <sub>Projet pédagogique — Licence 3 MIASHS, parcours Informatique et SHS · Université Toulouse – Jean-Jaurès</sub>
+</div>
